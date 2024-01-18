@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import UserContext from '../Context/UserContext';
 
 function Form() {
-  const { busca, setbusca, setbotao } = useContext(UserContext);
+  const { setrender, rende, setbusca, busca } = useContext(UserContext);
   const handleChange = (
 
     event :React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -14,7 +14,10 @@ function Form() {
     });
   };
   function submit() {
-    setbotao(true);
+    setrender({
+      ...rende,
+      ...busca,
+    });
   }
   return (
     <form>
@@ -45,7 +48,6 @@ function Form() {
         data-testid="comparison-filter"
         onChange={ handleChange }
       >
-        <option value="">Selecione</option>
         <option value="maior que">maior que</option>
         <option value="menor que">menor que</option>
         <option value="igual a">igual a</option>
@@ -54,6 +56,8 @@ function Form() {
         type="number"
         name="numerico"
         data-testid="value-filter"
+        onChange={ handleChange }
+        value={ busca.numerico }
       />
       <button
         type="button"

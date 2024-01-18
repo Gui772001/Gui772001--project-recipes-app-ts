@@ -3,8 +3,14 @@ import Form from './Form';
 import UserContext from '../Context/UserContext';
 
 function Table() {
-  const { filtrar } = useContext(UserContext);
-  console.log(filtrar);
+  const { filtrar, busca } = useContext(UserContext);
+  const filtroname = filtrar.filter((nome) => {
+    if (busca.busca.length > 0) {
+      return nome.name.includes(busca.busca);
+    }
+    return nome;
+  });
+
   return (
     <>
       <Form />
@@ -27,7 +33,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {filtrar.map((planeta, index) => (
+          {filtroname.map((planeta, index) => (
             <tr key={ index }>
               <td>{planeta.name}</td>
               <td>{planeta.rotation_period}</td>
