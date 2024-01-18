@@ -13,7 +13,7 @@ function useFetch() {
       }
     };
     fetchData();
-  },[]);
+  }, []);
 
   return { Api };
 }
