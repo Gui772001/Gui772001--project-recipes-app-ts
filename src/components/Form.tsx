@@ -14,10 +14,9 @@ function Form() {
     });
   };
   function submit() {
-    setrender({
+    setrender([
       ...rende,
-      ...busca,
-    });
+      busca]);
   }
   return (
     <form>

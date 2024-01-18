@@ -3,12 +3,7 @@ import UserContext from './UserContext';
 import useFetch from '../components/Hooks';
 
 function UserProvider({ children }) {
-  const [rende, setrender] = useState({
-    busca: '',
-    coluna: '',
-    valor: '',
-    numerico: '0',
-  });
+  const [rende, setrender] = useState([]);
   const [busca, setbusca] = useState({
     busca: '',
     coluna: 'population',
@@ -17,16 +12,21 @@ function UserProvider({ children }) {
   });
   const { Api } = useFetch();
   const filtrar = Api.filter((nome) => {
-    if (rende.valor === 'maior que') {
-      return +rende.numerico < +nome[rende.coluna];
-    }
-    if (rende.valor === 'menor que') {
-      return +rende.numerico > +nome[rende.coluna];
-    }
-    if (rende.valor === 'igual a') {
-      return +rende.numerico === +nome[rende.coluna];
-    }
-    return Api;
+    return (
+      rende.every((re) => {
+        if (re.valor === 'maior que') {
+          return +re.numerico < +nome[re.coluna];
+        }
+        if (re.valor === 'menor que') {
+          return +re.numerico > +nome[re.coluna];
+        }
+        if (re.valor === 'igual a') {
+          return +re.numerico === +nome[re.coluna];
+        }
+        return nome;
+      })
+
+    );
   });
   return (
     <UserContext.Provider value={ { Api, filtrar, rende, setrender, busca, setbusca } }>
