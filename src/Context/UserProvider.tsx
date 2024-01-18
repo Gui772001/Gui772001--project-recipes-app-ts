@@ -5,7 +5,7 @@ import useFetch from '../components/Hooks';
 function UserProvider({ children }) {
   const [rende, setrender] = useState({
     busca: '',
-    coluna: 'd',
+    coluna: '',
     valor: '',
     numerico: '0',
   });
