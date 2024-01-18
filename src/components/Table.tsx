@@ -1,42 +1,13 @@
-import useFetch from './Hooks';
+import { useContext } from 'react';
+import Form from './Form';
+import UserContext from '../Context/UserContext';
 
 function Table() {
-  const { data, setbusca, busca } = useFetch();
-
-  const handleChange = (
-    event :React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { value, name } = event.target;
-    setbusca({
-      ...busca,
-      [name]: value,
-    });
-  };
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       try {
-  //         const categoriesData = await getCategories();
-  //         categoriesData.results;
-  //       } catch (error) {
-  //         console.error('Error fetching data:', error);
-  //       }
-  //     };
-  //     fetchData();
-  //   }, [busca]);
+  const { filtrar } = useContext(UserContext);
+  console.log(filtrar);
   return (
     <>
-      <form>
-        <label data-testid="name-filter">
-          <input
-            type="text"
-            name="busca"
-            data-testid="checkout-fullname"
-            placeholder="Busca"
-            value={ busca.busca }
-            onChange={ handleChange }
-          />
-        </label>
-      </form>
+      <Form />
       <table>
         <thead>
           <tr>
@@ -56,7 +27,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {data.map((planeta, index) => (
+          {filtrar.map((planeta, index) => (
             <tr key={ index }>
               <td>{planeta.name}</td>
               <td>{planeta.rotation_period}</td>
