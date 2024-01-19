@@ -1,8 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import UserContext from '../Context/UserContext';
 
 function Form() {
   const { setrender, rende, setbusca, busca } = useContext(UserContext);
+  const [form, setform] = useState(['population', 'orbital_period',
+    'diameter', 'rotation_period', 'surface_water']);
+
   const handleChange = (
 
     event :React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -17,6 +20,15 @@ function Form() {
     setrender([
       ...rende,
       busca]);
+    const filteredForm = form.filter((formItem) => busca.coluna !== formItem);
+    console.log(rende);
+    setform(filteredForm);
+    setbusca({
+      busca: '',
+      coluna: filteredForm[0],
+      valor: 'maior que',
+      numerico: '0',
+    });
   }
   return (
     <form>
@@ -30,17 +42,18 @@ function Form() {
           onChange={ handleChange }
         />
       </label>
-      <label htmlFor="columnFilter">Escolha uma coluna:</label>
+      <label htmlFor="columnFilter">population</label>
       <select
         data-testid="column-filter"
         name="coluna"
         onChange={ handleChange }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        {form.map((opcoes) => (
+          <option key={ opcoes } value={ opcoes }>
+            {opcoes}
+          </option>
+        ))}
+
       </select>
       <select
         name="valor"

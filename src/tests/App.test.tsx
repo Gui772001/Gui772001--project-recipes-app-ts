@@ -20,16 +20,16 @@ describe('Testar se a caixa de input está sendo rederizada', async () => {
 describe('Testa se a requisicão está sendo feita', () => {
   it('teste', async () => {
     render( <UserProvider><App /></UserProvider>);
-    const input = await screen.findByText("Hoth");
+    const input = await screen.findByText("Endor");
    expect(input).toBeInTheDocument()
   });
 });
 describe('Teste se esta filtrando ', async () => {
-  it.only('teste', async () => {
+  it('teste', async () => {
     render(<UserProvider><App /></UserProvider>);
     const input = screen.getByRole("textbox" );
    await userEvent.type(input,'oo' )
-    const tattoine =  await screen.findByText('Tatooine')
+    const tattoine =  await screen.findByText('Naboo')
     expect(tattoine).toBeInTheDocument()
   })
 
