@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import UserContext from '../Context/UserContext';
 
 function Form() {
-  const { setrender, rende, setbusca, busca } = useContext(UserContext);
+  const { setrender, rende, setbusca, busca, filtrar } = useContext(UserContext);
   const [form, setform] = useState(['population', 'orbital_period',
     'diameter', 'rotation_period', 'surface_water']);
 
@@ -30,55 +30,99 @@ function Form() {
       numerico: '0',
     });
   }
+  const removerIte = (index: number) => {
+    const novaLista = [...rende];
+    console.log(novaLista);
+    filtrar.filter((voltando) => {
+      return voltando !== novaLista;
+    });
+    setform([...form, novaLista[0].coluna]);
+    novaLista.splice(index, 1);
+    setrender(novaLista);
+  };
+  const Removeallfiltros = () => {
+    setrender([]);
+    setform(['population', 'orbital_period',
+      'diameter', 'rotation_period', 'surface_water']);
+  };
   return (
-    <form>
-      <label data-testid="name-filter">
-        <input
-          type="text"
-          name="busca"
-          data-testid="checkout-fullname"
-          placeholder="Busca"
-          value={ busca.busca }
+    <>
+      <form>
+        <label data-testid="name-filter">
+          <input
+            type="text"
+            name="busca"
+            data-testid="checkout-fullname"
+            placeholder="Busca"
+            value={ busca.busca }
+            onChange={ handleChange }
+          />
+        </label>
+        <label htmlFor="columnFilter">population</label>
+        <select
+          data-testid="column-filter"
+          name="coluna"
           onChange={ handleChange }
-        />
-      </label>
-      <label htmlFor="columnFilter">population</label>
-      <select
-        data-testid="column-filter"
-        name="coluna"
-        onChange={ handleChange }
-      >
-        {form.map((opcoes) => (
-          <option key={ opcoes } value={ opcoes }>
-            {opcoes}
-          </option>
-        ))}
+        >
+          {form.map((opcoes) => (
+            <option key={ opcoes } value={ opcoes }>
+              {opcoes}
+            </option>
+          ))}
 
-      </select>
-      <select
-        name="valor"
-        data-testid="comparison-filter"
-        onChange={ handleChange }
-      >
-        <option value="maior que">maior que</option>
-        <option value="menor que">menor que</option>
-        <option value="igual a">igual a</option>
-      </select>
-      <input
-        type="number"
-        name="numerico"
-        data-testid="value-filter"
-        onChange={ handleChange }
-        value={ busca.numerico }
-      />
+        </select>
+        <select
+          name="valor"
+          data-testid="comparison-filter"
+          onChange={ handleChange }
+        >
+          <option value="maior que">maior que</option>
+          <option value="menor que">menor que</option>
+          <option value="igual a">igual a</option>
+        </select>
+        <input
+          type="number"
+          name="numerico"
+          data-testid="value-filter"
+          onChange={ handleChange }
+          value={ busca.numerico }
+        />
+        <button
+          type="button"
+          data-testid="button-filter"
+          onClick={ submit }
+        >
+          Filtrar
+        </button>
+      </form>
+      {rende.length !== 0 && (
+        rende.map((arr, index) => (
+          <div key={ index } data-testid="filter">
+            <p>
+              {arr.coluna}
+            </p>
+            <p>
+              {arr.valor}
+            </p>
+            <p>
+              {arr.numerico}
+            </p>
+            <button
+              onClick={ () => removerIte(index) }
+            >
+              Excluir
+
+            </button>
+          </div>
+        ))) }
       <button
-        type="button"
-        data-testid="button-filter"
-        onClick={ submit }
+        data-testid="button-remove-filters"
+        onClick={ Removeallfiltros }
       >
-        Filtrar
+        Remover todas filtragens
       </button>
-    </form>
+
+    </>
   );
 }
 export default Form;

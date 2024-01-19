@@ -10,7 +10,14 @@ function Table() {
     }
     return nome;
   });
-
+  // const removerIte = (index: number) => {
+  //   const novaLista = [...rende];
+  //   novaLista.splice(index, 1);
+  //   setrender(novaLista);
+  // };
+  // const Removeallfiltros = () => {
+  //   setrender([]);
+  // };
   return (
     <>
       <Form />
@@ -52,8 +59,36 @@ function Table() {
           ))}
         </tbody>
       </table>
-
     </>
+  //   {/* {filtrar.length !== 0 ? (
+  //     filtrar.map((arr, index) => {
+  //       <p key={ index }>
+  //         {' '}
+  //         {arr.busca}
+  //       </p>;
+  //         <p key={ index }>
+  //           {' '}
+  //           {arr.coluna}
+  //         </p>;
+  //           <button
+  //             data-testid="filter"
+  //             onClick={ () => removerIte(index) }
+  //           >
+  //             {' '}
+  //             Excluir
+
+  //           </button>;
+  //     })) : (
+  //       <p />
+  //   )}
+  //   <button
+  //     data-testid="button-remove-filters"
+  //     onClick={ Removeallfiltros }
+  //   >
+  //     Remover todas filtragens
+  //   </button>
+
+  // </> */}
   );
 }
 
