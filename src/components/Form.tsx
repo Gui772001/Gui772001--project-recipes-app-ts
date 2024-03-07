@@ -21,7 +21,6 @@ function Form() {
       ...rende,
       busca]);
     const filteredForm = form.filter((formItem) => busca.coluna !== formItem);
-    console.log(rende);
     setform(filteredForm);
     setbusca({
       busca: '',
@@ -32,7 +31,6 @@ function Form() {
   }
   const removerIte = (index: number) => {
     const novaLista = [...rende];
-    console.log(novaLista);
     filtrar.filter((voltando) => {
       return voltando !== novaLista;
     });
